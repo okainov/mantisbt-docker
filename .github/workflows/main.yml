@@ -21,9 +21,7 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: pre-commit
+      uses: pre-commit/action@v1.1.0
     - name: Hadolint Action
       uses: brpaz/hadolint-action@v1.1.0
