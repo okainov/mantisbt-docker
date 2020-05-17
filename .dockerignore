@@ -1,0 +1,5 @@
+# Use .dockerignore as whitelist
+*
+
+!mantis-entrypoint*
+!config_inc.php
