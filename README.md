@@ -7,7 +7,7 @@ Docker image for Mantis Bug Tracker https://www.mantisbt.org/
 
 # Why this image?
 
-There are some other alternative images exist already such as [vimagick/mantisbt](https://hub.docker.com/r/vimagick/mantisbt/), [xlrl/docker-mantisbt](https://github.com/xlrl/docker-mantisbt) and others. Why do we need yet another image?
+There are some other alternative images exist already such as [vimagick/mantisbt](https://hub.docker.com/r/vimagick/mantisbt/), [xlrl/docker-mantisbt](https://github.com/xlrl/docker-mantisbt) and a few others. Why do we need yet another image?
 
 The reason is to combine all the nice features each of them have and add some missing features. To list some:
 
@@ -16,7 +16,8 @@ The reason is to combine all the nice features each of them have and add some mi
 - Allows to easily configure presence of `admin` service folder
 - Comes with built-in integration with Gitlab and Github [source plugins](https://github.com/mantisbt-plugins/source-integration)
 - Example `docker-compose.yml` file provided for getting started in one click!
-- Easy customization of the config files and custom plugins without destroying data from base image.
+- Easy customization of the config files and custom plugins without destroying data from base image
+- Consistent Dockerfile style following all best practices (ensured by Dockerfile lint)
 
 
 # Quick start
@@ -28,7 +29,7 @@ https://www.mantisbt.org/docs/master/en-US/Admin_Guide/html-desktop/#admin.confi
 - Open browser at `localhost:8989/admin/install.php` and follow installation instructions, default out-of-the-box values are good to use.
 -- Ignore `Config File Exists but Database does not` warning and proceed installation
 - Log in as `administrator`/`root` (default credentials) and confugre whatever you need (typically you want to create your own Admin user and disable built-in "administrator" first)
-- Check MantisBT own's checks at `localhost:8989/admin/`. Note: several warnings are expected to be "WARN" due to issues in MantisBT, such as magic quotes warning ([#26964](https://www.mantisbt.org/bugs/view.php?id=26964) and "folder outside of web root" warnings ([#21584](https://mantisbt.org/bugs/view.php?id=21584)))
+- Check MantisBT own's checks at `localhost:8989/admin/`. Note: several warnings are expected to be "WARN" due to issues in MantisBT, such as magic quotes warning ([#26964](https://www.mantisbt.org/bugs/view.php?id=26964)) and "folder outside of web root" warnings ([#21584](https://mantisbt.org/bugs/view.php?id=21584)))
 - When ready to move to production, either remove `MANTIS_ENABLE_ADMIN` env variable or set it to 0 - this will remove "admin" folder from the installation.
 
 For further details refer to [official documentation](https://www.mantisbt.org/docs/master/en-US/Admin_Guide/html-desktop/#admin.install.new)
