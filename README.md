@@ -3,7 +3,7 @@
 
 # MantisBT bug tracker Docker image
 
-Docker image for Mantis Bug Tracker https://www.mantisbt.org/
+> Docker image for Mantis Bug Tracker https://www.mantisbt.org/
 
 # Why this image?
 
