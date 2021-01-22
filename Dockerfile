@@ -15,8 +15,8 @@ RUN set -xe \
     && rm -rf /var/lib/apt/lists/* \
     && a2enmod rewrite
 
-ENV MANTIS_VER 2.24.1
-ENV MANTIS_MD5 a5a001ffa5a9c9a55848de1fbf7fae95
+ENV MANTIS_VER 2.24.4
+ENV MANTIS_MD5 c557b1203368c7427b92177de4ce7285
 ENV MANTIS_URL https://sourceforge.net/projects/mantisbt/files/mantis-stable/${MANTIS_VER}/mantisbt-${MANTIS_VER}.tar.gz
 ENV MANTIS_FILE mantisbt.tar.gz
 
