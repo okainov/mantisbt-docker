@@ -91,6 +91,9 @@ $g_window_title = 'Title of your MantisBT instance';
 // Default is useless 5 minutes
 $g_reauthentication_expiry = 60 * 60;
 
+// Increase upload file size from default 5MB
+$g_max_file_size = 5 * 1024 * 1024;
+
 // Enable anonymous access
 
 $g_allow_anonymous_login = true;

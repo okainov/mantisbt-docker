@@ -36,6 +36,8 @@ RUN set -xe \
     && echo 'display_errors = Off ' >> "$PHP_INI_DIR/conf.d/mantis.php.ini" \
     && echo 'log_errors = On ' >> "$PHP_INI_DIR/conf.d/mantis.php.ini" \
     && echo 'error_log = /dev/stderr' >> "$PHP_INI_DIR/conf.d/mantis.php.ini" \
+    && echo 'upload_max_filesize = 50M ' >> "$PHP_INI_DIR/conf.d/mantis.php.ini" \
+    && echo 'post_max_size = 51M ' >> "$PHP_INI_DIR/conf.d/mantis.php.ini" \
     && echo 'register_argc_argv = Off' >> "$PHP_INI_DIR/conf.d/mantis.php.ini"
 
 COPY config_inc.php /var/www/html/config/config_inc.php
