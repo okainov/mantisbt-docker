@@ -43,7 +43,7 @@ RUN set -xe \
 COPY config_inc.php /var/www/html/config/config_inc.php
 
 # Install additional plugins
-ENV SOURCE_TAG v2.3.1
+ENV SOURCE_TAG v2.4.1
 RUN set -xe && \
         curl -fSL https://github.com/mantisbt-plugins/source-integration/tarball/${SOURCE_TAG} -o /tmp/source.tar.gz && \
         mkdir /tmp/source && \
