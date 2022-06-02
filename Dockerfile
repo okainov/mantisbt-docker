@@ -15,8 +15,8 @@ RUN set -xe \
     && rm -rf /var/lib/apt/lists/* \
     && a2enmod rewrite
 
-ENV MANTIS_VER 2.24.4
-ENV MANTIS_MD5 c557b1203368c7427b92177de4ce7285
+ENV MANTIS_VER 2.25.4
+ENV MANTIS_MD5 9466464aa7fd154736356f76d6882f04
 ENV MANTIS_URL https://sourceforge.net/projects/mantisbt/files/mantis-stable/${MANTIS_VER}/mantisbt-${MANTIS_VER}.tar.gz
 ENV MANTIS_FILE mantisbt.tar.gz
 
@@ -43,7 +43,7 @@ RUN set -xe \
 COPY config_inc.php /var/www/html/config/config_inc.php
 
 # Install additional plugins
-ENV SOURCE_TAG v2.4.1
+ENV SOURCE_TAG v2.5.2
 RUN set -xe && \
         curl -fSL https://github.com/mantisbt-plugins/source-integration/tarball/${SOURCE_TAG} -o /tmp/source.tar.gz && \
         mkdir /tmp/source && \
