@@ -12,7 +12,7 @@ There are some other alternative images exist already such as [vimagick/mantisbt
 The reason is to combine all the useful features they have and add some missing ones. To list some:
 
 - Always latest MantisBT version.
-- Comes with the latest PHP version (7.4 as for today)
+- Comes with the latest PHP version (8.4 as for today)
 - Allows to easily configure presence of `admin` service folder
 - Comes with built-in integration with Gitlab and Github [source plugins](https://github.com/mantisbt-plugins/source-integration)
 - Example `docker-compose.yml` file provided for getting started in one click!
@@ -34,7 +34,7 @@ https://www.mantisbt.org/docs/master/en-US/Admin_Guide/html-desktop/#admin.confi
 
 For further details refer to [official documentation](https://www.mantisbt.org/docs/master/en-US/Admin_Guide/html-desktop/#admin.install.new)
 
-# Example docker-compose.yml
+## Example docker-compose.yml
 
 ```YAML
 version: "3"
@@ -54,6 +54,12 @@ services:
       - EMAIL_WEBMASTER=webmaster@localhost
       - EMAIL_FROM=webmaster@localhost
       - EMAIL_RETURN_PATH=webmaster@localhost
+      # SMTP Settings, below are default values
+      #- SMTP_HOST=smtp.yourmail.com
+      #- SMTP_USER=username
+      #- SMTP_PASSWORD=superstrongpassword
+      #- SMTP_PORT=587
+      #- SMTP_MODE=tls # Maps to $g_smtp_connection_mode, defaults to tls, can be ssl or empty
       # Uncomment only if modified from default values
       #- MYSQL_HOST=db
       #- MYSQL_DATABASE=bugtracker
@@ -64,16 +70,40 @@ services:
     restart: always
 
   db:
-    image: mysql:5.7
+    image: mysql:8.4
     container_name: mantis_db
     volumes:
-      - ./db_data:/var/lib/mysql
+      - ./db_data_v8:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=bugtracker
       - MYSQL_USER=mantis
       - MYSQL_PASSWORD=mantis
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+
+```
+
+## Upgrading
+
+Normally, you should be able to upgrade freely without any restrictions, just make sure to run the compose with `MANTIS_ENABLE_ADMIN=1` after updating the versions and go to `your-mantis-instance/admin` to perform database upgrades when needed. That's all :)
+
+### MySQL 5.7 EOL
+
+`docker-compose.yaml` file before May 2025 in this repo was using `mysql:5.7` as database container. This has became EOL in 2023, so it was updated to current LTS version 8.4. Unfortunately [MySQL does NOT support direct upgrade](https://dev.mysql.com/doc/refman/8.4/en/upgrade-paths.html), so the recommended way is to just backup the database, upgrade the version and set new path for `db_data`, then recreate the database from dump.
+
+```
+# Backup first anyway
+docker exec mantis_db /usr/bin/mysqldump -u root -proot bugtracker > backup.sql
+docker compose down
+# Change 5.7->8.4 and either update db_data mount path e.g. to db_data_v8 or rename db_data->db_data.old
+docker compose up -d
+
+docker cp backup.sql mantis_db:/backup.sql
+docker exec -it mantis_db bash
+# Inside container
+mysql -u root -p bugtracker < /backup.sql
+
+# Test the instance, check /admin, if all good - set MANTIS_ENABLE_ADMIN=0 and enjoy
 
 ```
 
@@ -105,11 +135,21 @@ $g_anonymous_account = 'anonymous';
 
 There are following env variables supported:
 
-- EMAIL_WEBMASTER - maps to `g_webmaster_email`
-- EMAIL_FROM - maps to `g_from_email`
-- EMAIL_RETURN_PATH - maps to `g_return_path_email`
+- `EMAIL_WEBMASTER` - maps to `g_webmaster_email`
+- `EMAIL_FROM` - maps to `g_from_email`
+- `EMAIL_RETURN_PATH` - maps to `g_return_path_email`
+- `EMAIL_FROM_NAME` - maps to `$g_from_name`
 
-Those are good enough to start with. Going further, to configure SMTP you might need to create custom config (as described above) with the values like:
+Also SMTP env variables are supported as well:
+
+- `SMTP_HOST=smtp.yourmail.com`
+- `SMTP_USER=username`
+- `SMTP_PASSWORD=superstrongpassword`
+- `SMTP_PORT=587`
+- `SMTP_MODE=tls` - Maps to $g_smtp_connection_mode, defaults to tls, can be ssl or empty
+  ```
+
+Those are good enough to start with. Going further, to configure more details you might need to create custom config (as described above) with the values like those:
 ```
 $g_phpMailer_method = PHPMAILER_METHOD_SMTP;
 $g_smtp_host = 'mail.domain.com';
