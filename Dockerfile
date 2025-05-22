@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.4-apache
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -43,7 +43,7 @@ RUN set -xe \
 COPY config_inc.php /var/www/html/config/config_inc.php
 
 # Install additional plugins
-ENV SOURCE_TAG v2.5.2
+ENV SOURCE_TAG v2.9.0
 RUN set -xe && \
         curl -fSL https://github.com/mantisbt-plugins/source-integration/tarball/${SOURCE_TAG} -o /tmp/source.tar.gz && \
         mkdir /tmp/source && \
