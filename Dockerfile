@@ -8,7 +8,6 @@ RUN set -xe \
     && apt-get install --no-install-recommends -y \
         # PHP dependencies
         libfreetype6-dev libpng-dev libjpeg-dev libpq-dev libxml2-dev \
-        # New in PHP 7.4, required for mbstring, see https://github.com/docker-library/php/issues/880
         zlib1g-dev libldap2-dev \
     && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install gd mysqli soap pgsql ldap \
