@@ -1,4 +1,4 @@
-FROM php:8.4-apache
+FROM php:8.5-apache
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -15,8 +15,8 @@ RUN set -xe \
     && rm -rf /var/lib/apt/lists/* \
     && a2enmod rewrite
 
-ENV MANTIS_VER 2.27.1
-ENV MANTIS_MD5 e0f315b7f693ffb77610389e5a649283
+ENV MANTIS_VER 2.28.0
+ENV MANTIS_MD5 1ef230a2066e0f9bcc7070cb025e4dcb
 ENV MANTIS_URL https://sourceforge.net/projects/mantisbt/files/mantis-stable/${MANTIS_VER}/mantisbt-${MANTIS_VER}.tar.gz
 ENV MANTIS_FILE mantisbt.tar.gz
 
