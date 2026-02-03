@@ -12,7 +12,7 @@ There are some other alternative images exist already such as [vimagick/mantisbt
 The reason is to combine all the useful features they have and add some missing ones. To list some:
 
 - Always latest MantisBT version.
-- Comes with the latest PHP version (8.4 as for today)
+- Comes with the latest PHP version (8.5 as for 2026)
 - Allows to easily configure presence of `admin` service folder
 - Comes with built-in integration with Gitlab and Github [source plugins](https://github.com/mantisbt-plugins/source-integration)
 - Example `docker-compose.yml` file provided for getting started in one click!
