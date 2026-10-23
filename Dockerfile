@@ -1,4 +1,4 @@
-FROM php:8.5-apache
+FROM php:8.5.12-apache
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -15,10 +15,10 @@ RUN set -xe \
     && rm -rf /var/lib/apt/lists/* \
     && a2enmod rewrite
 
-ENV MANTIS_VER 2.28.0
-ENV MANTIS_MD5 1ef230a2066e0f9bcc7070cb025e4dcb
-ENV MANTIS_URL https://sourceforge.net/projects/mantisbt/files/mantis-stable/${MANTIS_VER}/mantisbt-${MANTIS_VER}.tar.gz
-ENV MANTIS_FILE mantisbt.tar.gz
+ENV MANTIS_VER=2.28.4
+ENV MANTIS_MD5=6799516aa84ebbb86b673e22bbe7610c
+ENV MANTIS_URL=https://sourceforge.net/projects/mantisbt/files/mantis-stable/${MANTIS_VER}/mantisbt-${MANTIS_VER}.tar.gz
+ENV MANTIS_FILE=mantisbt.tar.gz
 
 # Install MantisBT itself
 RUN set -xe \
@@ -43,7 +43,7 @@ RUN set -xe \
 COPY config_inc.php /var/www/html/config/config_inc.php
 
 # Install additional plugins
-ENV SOURCE_TAG v2.9.0
+ENV SOURCE_TAG=v2.9.3
 RUN set -xe && \
         curl -fSL https://github.com/mantisbt-plugins/source-integration/tarball/${SOURCE_TAG} -o /tmp/source.tar.gz && \
         mkdir /tmp/source && \

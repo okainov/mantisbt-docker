@@ -147,9 +147,9 @@ Also SMTP env variables are supported as well:
 - `SMTP_PASSWORD=superstrongpassword`
 - `SMTP_PORT=587`
 - `SMTP_MODE=tls` - Maps to $g_smtp_connection_mode, defaults to tls, can be ssl or empty
-  ```
 
 Those are good enough to start with. Going further, to configure more details you might need to create custom config (as described above) with the values like those:
+
 ```
 $g_phpMailer_method = PHPMAILER_METHOD_SMTP;
 $g_smtp_host = 'mail.domain.com';
